@@ -7,6 +7,7 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
     {
         [SerializeField] private float circleRadius;
         [SerializeField] private float positionOffsetY;
+        [SerializeField] private string targetTag;
         [SerializeField] private LayerMask targetLayer;
         [SerializeField] private Grid grid;
 
@@ -22,7 +23,9 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
             targetLayer);
 
 
-        public bool IsGirderDetect() => GirderCollider;
+        public bool IsGirderDetect() => 
+            GirderCollider
+            && GirderCollider.CompareTag(targetTag);
 
         public bool GetDetectedGirderPosition(out Vector2 girderPosition)
         {
