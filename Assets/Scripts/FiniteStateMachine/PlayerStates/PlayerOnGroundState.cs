@@ -1,5 +1,4 @@
 ﻿using Entities;
-using UnityEngine;
 
 
 namespace FiniteStateMachine.PlayerStates
@@ -21,6 +20,7 @@ namespace FiniteStateMachine.PlayerStates
 
             bodyCore.BodyCollision.SetColliderHeight(ColiderHeight);
         }
+
         public override void LogicUpdate()
         {
             base.LogicUpdate();
