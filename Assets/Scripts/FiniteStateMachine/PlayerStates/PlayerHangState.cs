@@ -21,6 +21,7 @@ namespace FiniteStateMachine.PlayerStates
 
             player.Animator.Play(hashHanging);
 
+            player.JumpState.ResetAmountOfJump();
             physicsCore.Movement.SetVelocityZero();
             physicsCore.Freezing.FreezePosY();
 
