@@ -33,6 +33,14 @@ namespace FiniteStateMachine.PlayerStates
             base.LogicUpdate();
 
             player.Animator.SetBool(hashIsMoving, player.Input.InputHorizontal != default);  
+
+            if (sensorCore.LadderDetector.IsOnLadder)
+            {
+                if(player.Input.InputVertical == Vector2.up.y)
+                {
+                    stateMachine.ChangeState(player.OnLadderState);
+                }
+            }
             
             if(player.Input.InputVertical == Vector2.down.y)
             {

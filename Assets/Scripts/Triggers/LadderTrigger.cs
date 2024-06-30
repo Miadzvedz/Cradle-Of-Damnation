@@ -12,6 +12,7 @@ namespace Triggers
         public event Action OnEnter;
         public event Action OnExit;
 
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (targetLayer.IsMatch(collision.transform.gameObject.layer))

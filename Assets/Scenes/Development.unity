@@ -10904,6 +10904,7 @@ GameObject:
   - component: {fileID: 1480867152}
   - component: {fileID: 1480867151}
   - component: {fileID: 1480867150}
+  - component: {fileID: 1480867155}
   m_Layer: 0
   m_Name: Sensor
   m_TagString: Untagged
@@ -11034,6 +11035,20 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &1480867155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480867147}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02caa5ab20bbfac48859534bfc10b897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isShowRay: 0
+  grid: {fileID: 893964105}
 --- !u!1 &1623446120
 GameObject:
   m_ObjectHideFlags: 0

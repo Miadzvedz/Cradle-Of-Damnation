@@ -38,7 +38,14 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.LogicUpdate();
 
-            if (isOneWayPlatform || isPlatform)
+            if (sensorCore.LadderDetector.IsOnLadder)
+            {
+                if (player.Input.InputVertical == Vector2.up.y)
+                {
+                    stateMachine.ChangeState(player.OnLadderState);
+                }
+            }
+            else if (isOneWayPlatform || isPlatform)
             {               
                 player.LandingState.LandingForce = fallingForce;
                 stateMachine.ChangeState(player.LandingState);

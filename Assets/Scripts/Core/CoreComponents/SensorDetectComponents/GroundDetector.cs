@@ -31,7 +31,6 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
             Mathf.NegativeInfinity,
             targetLayer);
 
-
         public bool IsGroundDetect()
             => hitDistance >= GroundHit.distance;
 
