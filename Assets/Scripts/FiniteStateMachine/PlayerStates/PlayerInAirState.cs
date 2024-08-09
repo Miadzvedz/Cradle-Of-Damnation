@@ -80,18 +80,12 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.Exit();
 
-            isGirderDetected = false;
-            isLedgeDetected = false;
-            isGrabWallDetected = false;
-            isOneWayPlatform = false;
-            isPlatform = false;
+            Reset();
 
             player.Input.JumpEvent -= OnJump;
             player.Input.DashEvent -= OnAirDash;
 
             player.JumpState.DisableDoubleJumpFX();
-            
-            ResetFallingForce();
         }
 
         public override void DoCheck()
@@ -137,7 +131,15 @@ namespace FiniteStateMachine.PlayerStates
             }
         }
 
-        private void ResetFallingForce() => fallingForce = default;
+        private void Reset()
+        {
+            isGirderDetected = false;
+            isLedgeDetected = false;
+            isGrabWallDetected = false;
+            isOneWayPlatform = false;
+            isPlatform = false;
+            fallingForce = default;
+        }
 
         #region Input
         private void OnJump()

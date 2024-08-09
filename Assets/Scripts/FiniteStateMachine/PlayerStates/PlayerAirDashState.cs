@@ -46,7 +46,7 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.PhysicsUpdate();
 
-            physicsCore.Movement.SetVelocity(player.Data.DashSpeed, new Vector2(1, 0), physicsCore.Flipping.FacingDirection);
+            physicsCore.Movement.SetVelocity(player.Data.DashSpeed, Vector2.right, physicsCore.Flipping.FacingDirection);
         }
 
         public override void Exit()

@@ -25,6 +25,7 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
             CreateSensor();          
         }
 
+
         private void CreateSensor()
         {
             GameObject obj = new GameObject(SensorName);
@@ -48,6 +49,5 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
         {
             DrawGizmos();
         }
-
     }
 }

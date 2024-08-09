@@ -7,6 +7,8 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
     public class LadderDetector : SensorDetectComponent
     {
         [SerializeField] private Grid grid;
+        [SerializeField] private float touchingDistance;
+
         private LadderTrigger ladderTrigger;
 
         public bool IsOnLadder { get; private set; }
@@ -25,17 +27,13 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
 
             ladderTrigger = FindAnyObjectByType<LadderTrigger>();
 
-            Debug.Log(ladderTrigger);
-
             ladderTrigger.OnEnter += OnEnterLadder;
             ladderTrigger.OnExit += OnExitLadder;
-
         }
+
 
         private void OnEnterLadder()
         {
-            IsOnLadder = true;
-
             Vector2 pointPosition = core.Physics.Flipping.IsLeftDirection()
                 ? new Vector2(entityCollider.bounds.min.x, entityCollider.bounds.center.y)
                 : new Vector2(entityCollider.bounds.max.x, entityCollider.bounds.center.y);
@@ -43,13 +41,21 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
             Vector3 detectedPoint = entityCollider.ClosestPoint(pointPosition);
             Vector3Int cellPosition = grid.WorldToCell(detectedPoint);
             Vector3 centerOfCell = grid.GetCellCenterWorld(cellPosition);
+
             CenterByHorizontOfLadder = centerOfCell.x;
+
+            ladderTrigger.OnStay += OnStayLadder;
+        }
+
+        private void OnStayLadder()
+        {
+            IsOnLadder = touchingDistance >= Mathf.Abs(CenterByHorizontOfLadder - entityCollider.transform.position.x);
+            //Debug.Log(IsOnLadder);
         }
 
         private void OnExitLadder()
         {
-            IsOnLadder = false;
-            CenterByHorizontOfLadder = default;
+            ladderTrigger.OnStay -= OnStayLadder;
         }
 
 

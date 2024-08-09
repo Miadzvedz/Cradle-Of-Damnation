@@ -9450,20 +9450,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 607011116}
     m_ColliderPaths:
-    - - X: -311875008
+    - - X: -313124992
         Y: 35000000
-      - X: -318124992
+      - X: -316875008
         Y: 35000000
-      - X: -318124992
+      - X: -316875008
         Y: -35000000
-      - X: -311875008
+      - X: -313124992
         Y: -35000000
   m_CompositePaths:
     m_Paths:
-    - - {x: -31.18753, y: -3.5}
-      - {x: -31.18753, y: 3.5}
-      - {x: -31.8125, y: 3.499971}
-      - {x: -31.812471, y: -3.5}
+    - - {x: -31.312529, y: -3.5}
+      - {x: -31.312529, y: 3.5}
+      - {x: -31.687502, y: 3.499971}
+      - {x: -31.687473, y: -3.5}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -10865,7 +10865,7 @@ Transform:
   m_GameObject: {fileID: 1444150607}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33, y: -2.5, z: -10}
+  m_LocalPosition: {x: -32.5, y: -2.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10972,7 +10972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShowRay: 0
-  hitDistance: 0.75
+  hitDistance: 0.5
   positionOffsetY: 0.6
   spanOfLedge: 0.2
   targetLayer:
@@ -10993,7 +10993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isShowRay: 0
   span: 0.4
-  hitDistance: 0.4
+  hitDistance: 0.26
   targetTag: GrabWall
   targetLayer:
     serializedVersion: 2
@@ -11011,7 +11011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShowRay: 0
-  circleRadius: 0.26
+  circleRadius: 0.2
   positionOffsetY: 0.4
   targetLayer:
     serializedVersion: 2
@@ -11028,7 +11028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfe2f11186e6ad42b95f9ef0f70af55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShowRay: 1
+  isShowRay: 0
   hitDistance: 0.8
   platformTag: Platform
   oneWayPlatformTag: OneWayPlatform
@@ -11049,6 +11049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isShowRay: 0
   grid: {fileID: 893964105}
+  touchingDistance: 0.2
 --- !u!1 &1623446120
 GameObject:
   m_ObjectHideFlags: 0
@@ -11469,7 +11470,7 @@ Transform:
   m_GameObject: {fileID: 1892614046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33, y: -2.09375, z: -10}
+  m_LocalPosition: {x: -32.5, y: -2.09375, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11542,7 +11543,7 @@ GameObject:
   - component: {fileID: 1933304571}
   - component: {fileID: 1933304570}
   m_Layer: 0
-  m_Name: Body
+  m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11686,7 +11687,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.69}
-  m_Size: {x: 0.57, y: 1.38}
+  m_Size: {x: 0.38, y: 1.38}
   m_Direction: 0
 --- !u!95 &2852394463331404607
 Animator:
@@ -11718,7 +11719,7 @@ Transform:
   m_GameObject: {fileID: 332105253614478520}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33, y: -3.5, z: 0}
+  m_LocalPosition: {x: -32.5, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:

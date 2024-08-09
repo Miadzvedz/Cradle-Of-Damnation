@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Interfaces;
 using CoreSystem.CoreComponents;
+using UnityEngine;
 
 
 namespace FiniteStateMachine.PlayerStates
@@ -30,6 +31,8 @@ namespace FiniteStateMachine.PlayerStates
 
         public virtual void Enter()
         {
+            Debug.Log(this);
+
             isAnimFinished = false;
             DoCheck();
         }
