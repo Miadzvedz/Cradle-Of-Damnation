@@ -38,14 +38,15 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.LogicUpdate();
 
-            if (sensorCore.LadderDetector.IsOnLadder)
-            {
-                if (player.Input.InputVertical == Vector2.up.y)
-                {
-                    stateMachine.ChangeState(player.OnLadderState);
-                }
-            }
-            else if (isOneWayPlatform || isPlatform)
+            //if (sensorCore.LadderDetector.IsOnLadder)
+            //{
+            //    Debug.Log(sensorCore.LadderDetector.IsOnLadder);
+            //    if (player.Input.InputVertical == Vector2.up.y)
+            //    {
+            //        stateMachine.ChangeState(player.OnLadderState);
+            //    }
+            //}
+            if (isOneWayPlatform || isPlatform)
             {               
                 player.LandingState.LandingForce = fallingForce;
                 stateMachine.ChangeState(player.LandingState);
@@ -101,20 +102,20 @@ namespace FiniteStateMachine.PlayerStates
                 isOneWayPlatform = sensorCore.GroundDetector.IsOneWayPlatformDetect();
             }
                 
-            if (isGrabWallDetected = sensorCore.GrabWallDetector.GetDetectedGrabWallPosition(out Vector2 wallPosition))
+            if (isGrabWallDetected = sensorCore.GrabWallDetector.TryGetGrabWallPosition(out Vector2 wallPosition))
             {
                 PlayerOnWallState.DetectedPosition = wallPosition;
             }                
           
             if (player.HangOnLedgeState.isReady)
             {
-                if (isLedgeDetected = sensorCore.LedgeDetector.GetDetectedLedgeCorner(out Vector2 ledgeCorner))
+                if (isLedgeDetected = sensorCore.LedgeDetector.TryGetLedgeCorner(out Vector2 ledgeCorner))
                     PlayerHangState.GrapPosition = ledgeCorner;
             }
             
             if (player.HangOnGirderState.isReady)
             {
-                if (isGirderDetected = sensorCore.GirderDetector.GetDetectedGirderPosition(out Vector2 girderPosition))
+                if (isGirderDetected = sensorCore.GirderDetector.TryGetGirderPosition(out Vector2 girderPosition))
                     PlayerHangState.GrapPosition = girderPosition;
             }
         }

@@ -10,7 +10,6 @@ namespace Triggers
         [SerializeField] private LayerMask targetLayer;
         
         public event Action OnEnter;
-        public event Action OnStay;
         public event Action OnExit;
 
 
@@ -20,11 +19,6 @@ namespace Triggers
             {
                 OnEnter?.Invoke();
             }
-        }
-
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            OnStay?.Invoke();
         }
 
         private void OnTriggerExit2D(Collider2D collision)

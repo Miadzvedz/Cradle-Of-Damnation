@@ -44,7 +44,7 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
         }
 
 
-        public bool GetDetectedLedgeCorner(out Vector2 ledgeCorner)
+        public bool TryGetLedgeCorner(out Vector2 ledgeCorner)
         {
             ledgeCorner = Vector2.zero;
             bool isDetected = IsLedgeDetect();

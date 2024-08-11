@@ -27,7 +27,7 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
             GirderCollider
             && GirderCollider.CompareTag(targetTag);
 
-        public bool GetDetectedGirderPosition(out Vector2 girderPosition)
+        public bool TryGetGirderPosition(out Vector2 girderPosition)
         {
             girderPosition = Vector2.zero;
             bool isDetected = IsGirderDetect();

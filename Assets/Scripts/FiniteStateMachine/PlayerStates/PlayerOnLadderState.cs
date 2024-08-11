@@ -18,7 +18,7 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.Enter();
          
-            player.transform.position = new Vector2(sensorCore.LadderDetector.CenterByHorizontOfLadder, player.transform.position.y);
+
             physicsCore.Gravitation.GravitationOff();
             physicsCore.Movement.SetVelocityZero();
 

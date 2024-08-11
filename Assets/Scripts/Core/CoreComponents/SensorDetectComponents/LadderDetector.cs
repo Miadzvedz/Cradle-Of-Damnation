@@ -11,8 +11,7 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
 
         private LadderTrigger ladderTrigger;
 
-        public bool IsOnLadder { get; private set; }
-        public float CenterByHorizontOfLadder {  get; private set; }
+        private bool isOnLadder;
 
 
         protected override Vector2 InitSensorPosition => 
@@ -27,42 +26,48 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
 
             ladderTrigger = FindAnyObjectByType<LadderTrigger>();
 
-            ladderTrigger.OnEnter += OnEnterLadder;
-            ladderTrigger.OnExit += OnExitLadder;
+            if (ladderTrigger != null )
+            {
+                ladderTrigger.OnEnter += OnEnterLadder;
+                ladderTrigger.OnExit += OnExitLadder;
+            }
+        }
+
+        public bool TryGetLadderPosition(out Vector2 positionOnLadder)
+        {
+            positionOnLadder = Vector2.zero;
+            if (isOnLadder)
+            {
+                Vector2 pointPosition = core.Physics.Flipping.IsLeftDirection()
+                    ? new Vector2(entityCollider.bounds.min.x, entityCollider.bounds.center.y)
+                    : new Vector2(entityCollider.bounds.max.x, entityCollider.bounds.center.y);
+
+                Vector3 detectedPoint = entityCollider.ClosestPoint(pointPosition);
+                Vector3Int cellPosition = grid.WorldToCell(detectedPoint);
+                Vector3 centerOfCell = grid.GetCellCenterWorld(cellPosition);
+
+                positionOnLadder = new Vector2(centerOfCell.x, entityCollider.transform.position.y);
+
+            }
+            return isOnLadder;
         }
 
 
         private void OnEnterLadder()
         {
-            Vector2 pointPosition = core.Physics.Flipping.IsLeftDirection()
-                ? new Vector2(entityCollider.bounds.min.x, entityCollider.bounds.center.y)
-                : new Vector2(entityCollider.bounds.max.x, entityCollider.bounds.center.y);
-
-            Vector3 detectedPoint = entityCollider.ClosestPoint(pointPosition);
-            Vector3Int cellPosition = grid.WorldToCell(detectedPoint);
-            Vector3 centerOfCell = grid.GetCellCenterWorld(cellPosition);
-
-            CenterByHorizontOfLadder = centerOfCell.x;
-
-            ladderTrigger.OnStay += OnStayLadder;
+            isOnLadder = true;
         }
 
-        private void OnStayLadder()
-        {
-            IsOnLadder = touchingDistance >= Mathf.Abs(CenterByHorizontOfLadder - entityCollider.transform.position.x);
-            //Debug.Log(IsOnLadder);
-        }
 
         private void OnExitLadder()
         {
-            ladderTrigger.OnStay -= OnStayLadder;
+            isOnLadder = false;
         }
 
 
         protected override void DrawRay()
         {
             Gizmos.color = Color.red;
-
         }
     }
 }
