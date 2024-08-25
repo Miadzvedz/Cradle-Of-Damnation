@@ -1,5 +1,7 @@
-﻿using Triggers;
+﻿using Objects;
+using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 namespace CoreSystem.CoreComponents.SensorDetectComponents
@@ -7,34 +9,25 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
     public class LadderDetector : SensorDetectComponent
     {
         [SerializeField] private Grid grid;
-        [SerializeField] private float touchingDistance;
+        [SerializeField] public string targetTag;
+        [SerializeField] public LayerMask targetLayer;
 
-        private LadderTrigger ladderTrigger;
-
-        private bool isOnLadder;
+        [field: Header("CHECKING OFFSETS")]
+        [SerializeField] public float firstOffset;
+        [SerializeField] public float secondOffset;
+        [SerializeField] public float thirdOffset;
 
 
         protected override Vector2 InitSensorPosition => 
-            new Vector2(entityCollider.bounds.center.x, entityCollider.bounds.center.y);
+            new Vector2(entityCollider.bounds.center.x, entityCollider.bounds.min.y);
 
         protected override string SensorName => nameof(LadderDetector);
 
 
-        protected override void Awake()
+
+        /*public bool TryGetLadderPosition(out Vector2 positionOnLadder)
         {
-            base.Awake();
-
-            ladderTrigger = FindAnyObjectByType<LadderTrigger>();
-
-            if (ladderTrigger != null )
-            {
-                ladderTrigger.OnEnter += OnEnterLadder;
-                ladderTrigger.OnExit += OnExitLadder;
-            }
-        }
-
-        public bool TryGetLadderPosition(out Vector2 positionOnLadder)
-        {
+            
             positionOnLadder = Vector2.zero;
             if (isOnLadder)
             {
@@ -50,24 +43,35 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
 
             }
             return isOnLadder;
-        }
+            
+        }*/
 
-
-        private void OnEnterLadder()
+        public bool TryGetLadderOnBottom(out Ladder ladder)
         {
-            isOnLadder = true;
-        }
+            ladder = new Ladder();
+            bool isDetected = false;
 
+            Collider2D under = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + firstOffset), targetLayer);
+            Collider2D above = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + secondOffset), targetLayer);
 
-        private void OnExitLadder()
-        {
-            isOnLadder = false;
+            if (under == null && above != null)
+            {   
+                if (isDetected = above.CompareTag(targetTag))
+                {
+                    ladder.Set(above.bounds.max.y, above.bounds.min.y, above.bounds.center.x);
+                }
+            }
+
+            return isDetected;
         }
 
 
         protected override void DrawRay()
         {
             Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + firstOffset), 0.02f);
+            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + secondOffset), 0.02f);
+            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + thirdOffset), 0.02f);
         }
     }
 }

@@ -5,15 +5,16 @@ using UnityEngine;
 
 namespace Triggers
 {
-    public class LadderTrigger : MonoBehaviour
+    public class Trigger : MonoBehaviour
     {
-        [SerializeField] private LayerMask targetLayer;
+        [SerializeField] protected LayerMask targetLayer;
         
         public event Action OnEnter;
+        public event Action OnStay;
         public event Action OnExit;
 
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        protected void OnTriggerEnter2D(Collider2D collision)
         {
             if (targetLayer.IsMatch(collision.transform.gameObject.layer))
             {
@@ -21,7 +22,15 @@ namespace Triggers
             }
         }
 
-        private void OnTriggerExit2D(Collider2D collision)
+        protected void OnTriggerStay2D(Collider2D collision)
+        {
+            if (targetLayer.IsMatch(collision.transform.gameObject.layer))
+            {
+                OnStay?.Invoke();
+            }
+        }
+
+        protected void OnTriggerExit2D(Collider2D collision)
         {
             if (targetLayer.IsMatch(collision.transform.gameObject.layer))
             {

@@ -1,4 +1,7 @@
-﻿using Entities;
+﻿using CoreSystem;
+using Entities;
+using Objects;
+using UnityEngine;
 
 
 namespace FiniteStateMachine.PlayerStates
@@ -21,9 +24,15 @@ namespace FiniteStateMachine.PlayerStates
             bodyCore.BodyCollision.SetColliderHeight(ColiderHeight);           
         }
 
-        public override void LogicUpdate()
+        public override void LogicUpdate() 
         {
             base.LogicUpdate();
+
+
+            if(sensorCore.LadderDetector.TryGetLadderOnBottom(out Ladder ladder))
+            {
+                Debug.Log(ladder.ToString());
+            }
 
             physicsCore.Flipping.FlipToDirection(player.Input.InputHorizontal);
 
