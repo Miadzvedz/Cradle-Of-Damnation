@@ -84,6 +84,25 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
             return isDetected;
         }
 
+        public bool TryGetLadderOnCenter(out Ladder ladder)
+        {
+            ladder = new Ladder();
+            bool isDetected = false;
+
+            Collider2D top = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + thirdOffset), targetLayer);
+            Collider2D bot = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + secondOffset), targetLayer);
+
+            if (top != null && top != null)
+            {
+                if (isDetected = bot.CompareTag(targetTag) && top.CompareTag(targetTag))
+                {
+                    ladder.Set(bot.bounds.max.y, bot.bounds.min.y, bot.bounds.center.x);
+                }
+            }
+
+            return isDetected;
+        }
+
 
         protected override void DrawRay()
         {
