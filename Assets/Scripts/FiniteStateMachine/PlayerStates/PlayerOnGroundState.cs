@@ -1,6 +1,5 @@
-﻿using CoreSystem;
+﻿using CoreSystem.CoreComponents.SensorDetectComponents;
 using Entities;
-using Objects;
 using UnityEngine;
 
 
@@ -27,12 +26,6 @@ namespace FiniteStateMachine.PlayerStates
         public override void LogicUpdate() 
         {
             base.LogicUpdate();
-
-
-            if(sensorCore.LadderDetector.TryGetLadderOnBottom(out Ladder ladder))
-            {
-                Debug.Log(ladder.ToString());
-            }
 
             physicsCore.Flipping.FlipToDirection(player.Input.InputHorizontal);
 

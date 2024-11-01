@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 
-namespace Pool.ItemsPool
+namespace Pool.ItemsPool.AnimationPool
 {
     public abstract class AnimationEffect<T> : PooledObject, IAnimationFinishTrigger
         where T : Enum

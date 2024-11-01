@@ -44,6 +44,7 @@ public sealed class InputReader : MonoBehaviour, Controls.IPlayerActions
         InputVertical = StickLimiter(inputY, (int)(MovementValue * Vector2.up).normalized.y); 
     }
 
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed)

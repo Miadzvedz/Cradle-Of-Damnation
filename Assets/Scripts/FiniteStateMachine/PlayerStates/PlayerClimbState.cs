@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Pool.ItemsPool;
+using Pool.ItemsPool.AnimationPool;
 using UnityEngine;
 
 namespace FiniteStateMachine.PlayerStates

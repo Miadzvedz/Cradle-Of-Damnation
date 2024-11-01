@@ -17,30 +17,33 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
             new Vector2(entityCollider.bounds.min.x, entityCollider.bounds.center.y);
 
 
-        private RaycastHit2D LedgeHit => Physics2D.Raycast(
+        private RaycastHit2D UpRay => Physics2D.Raycast(
+            new Vector2(sensor.position.x, sensor.position.y + positionOffsetY + spanOfLedge),
+            Vector2.right * core.Physics.Flipping.FacingDirection,
+            hitDistance,
+            targetLayer);
+
+        private RaycastHit2D BetweenRay => Physics2D.Raycast(
+            new Vector2(sensor.position.x, sensor.position.y + positionOffsetY),
+            Vector2.up,
+            spanOfLedge,
+            targetLayer);
+
+        private RaycastHit2D DownRay => Physics2D.Raycast(
             new Vector2(sensor.position.x, sensor.position.y + positionOffsetY),
             Vector2.right * core.Physics.Flipping.FacingDirection,
             hitDistance,
             targetLayer);
 
 
+
         public bool IsLedgeDetect()
         {
-            bool aboveIsEmpty = !Physics2D.Raycast(
-                new Vector2(sensor.position.x, sensor.position.y + positionOffsetY + spanOfLedge),
-                Vector2.right * core.Physics.Flipping.FacingDirection,
-                hitDistance,
-                targetLayer);
+            bool isUpHit = UpRay;
+            bool isBetweenHit = BetweenRay;
+            bool isDownHit = DownRay;
 
-            bool betweenHitsIsEmpty = !Physics2D.Raycast(
-                new Vector2(sensor.position.x, sensor.position.y + positionOffsetY),
-                Vector2.up,
-                spanOfLedge,
-                targetLayer);
-
-            return LedgeHit.collider != null
-                && betweenHitsIsEmpty
-                && aboveIsEmpty;
+            return !isBetweenHit && !isUpHit && isDownHit;
         }
 
 
@@ -51,7 +54,7 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
 
             if (isDetected)
             {
-                Vector3Int cellPosition = grid.WorldToCell(LedgeHit.point);
+                Vector3Int cellPosition = grid.WorldToCell(DownRay.point);
                 Vector3 centerOfCell = grid.GetCellCenterWorld(cellPosition);
                 ledgeCorner.Set(centerOfCell.x, centerOfCell.y);
             }
@@ -63,9 +66,9 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
         protected override void DrawRay()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(new Vector2(sensor.position.x, sensor.position.y + positionOffsetY), new Vector2(hitDistance * core.Physics.Flipping.FacingDirection, 0)); //ledge ray 1
-            Gizmos.DrawRay(new Vector2(sensor.position.x, sensor.position.y + positionOffsetY + spanOfLedge), new Vector2(hitDistance * core.Physics.Flipping.FacingDirection, 0)); //ledge ray 2
-            Gizmos.DrawRay(new Vector2(sensor.position.x, sensor.position.y + positionOffsetY + spanOfLedge), new Vector2(0, - spanOfLedge)); //ledge ray 3
+            Gizmos.DrawRay(new Vector2(sensor.position.x, sensor.position.y + positionOffsetY), new Vector2(hitDistance * core.Physics.Flipping.FacingDirection, 0)); //UpHit
+            Gizmos.DrawRay(new Vector2(sensor.position.x, sensor.position.y + positionOffsetY + spanOfLedge), new Vector2(0, - spanOfLedge)); //BetweenHit
+            Gizmos.DrawRay(new Vector2(sensor.position.x, sensor.position.y + positionOffsetY + spanOfLedge), new Vector2(hitDistance * core.Physics.Flipping.FacingDirection, 0)); //DownHit
         }
     }
 }

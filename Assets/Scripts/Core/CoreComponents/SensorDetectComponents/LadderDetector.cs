@@ -1,21 +1,20 @@
-﻿using Objects;
-using System;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 
 namespace CoreSystem.CoreComponents.SensorDetectComponents
 {
     public class LadderDetector : SensorDetectComponent
     {
+        [SerializeField] private Tilemap tilemap;
         [SerializeField] private Grid grid;
         [SerializeField] public string targetTag;
         [SerializeField] public LayerMask targetLayer;
 
         [field: Header("CHECKING OFFSETS")]
-        [SerializeField] public float firstOffset;
-        [SerializeField] public float secondOffset;
-        [SerializeField] public float thirdOffset;
+        [SerializeField] public float upPoinByY;
+        [SerializeField] public float middlePoinByY;
+        [SerializeField] public float downPointByY;
 
 
         protected override Vector2 InitSensorPosition => 
@@ -24,92 +23,63 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
         protected override string SensorName => nameof(LadderDetector);
 
 
+        private Vector2 UpPointPosition => new(sensor.position.x, sensor.position.y + upPoinByY);
+        private Vector2 MiddlePointPosition => new(sensor.position.x, sensor.position.y + middlePoinByY);
+        private Vector2 DownPointPosition => new(sensor.position.x, sensor.position.y + downPointByY);
 
-        /*public bool TryGetLadderPosition(out Vector2 positionOnLadder)
+        private Collider2D UpHitPoint => Physics2D.OverlapPoint(UpPointPosition, targetLayer);
+        private Collider2D MiddleHitPoint => Physics2D.OverlapPoint(MiddlePointPosition, targetLayer);
+        private Collider2D DownHitPoint => Physics2D.OverlapPoint(DownPointPosition, targetLayer);
+
+
+
+        public bool TryGetMidOfLadder(out float midOfLadder, LadderPlace place)
         {
-            
-            positionOnLadder = Vector2.zero;
-            if (isOnLadder)
-            {
-                Vector2 pointPosition = core.Physics.Flipping.IsLeftDirection()
-                    ? new Vector2(entityCollider.bounds.min.x, entityCollider.bounds.center.y)
-                    : new Vector2(entityCollider.bounds.max.x, entityCollider.bounds.center.y);
+            midOfLadder = default;
 
-                Vector3 detectedPoint = entityCollider.ClosestPoint(pointPosition);
-                Vector3Int cellPosition = grid.WorldToCell(detectedPoint);
+            bool isDetected = IsLaderDetected(place);
+
+            if (isDetected)
+            {
+                Vector2 detectedPosition = GetDetectedPosition();
+                Vector3Int cellPosition = grid.WorldToCell(detectedPosition);
                 Vector3 centerOfCell = grid.GetCellCenterWorld(cellPosition);
-
-                positionOnLadder = new Vector2(centerOfCell.x, entityCollider.transform.position.y);
-
-            }
-            return isOnLadder;
-            
-        }*/
-
-        public bool TryGetLadderOnBottom(out Ladder ladder)
-        {
-            ladder = new Ladder();
-            bool isDetected = false;
-
-            Collider2D under = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + firstOffset), targetLayer);
-            Collider2D above = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + secondOffset), targetLayer);
-
-            if (under == null && above != null)
-            {   
-                if (isDetected = above.CompareTag(targetTag))
-                {
-                    ladder.Set(above.bounds.max.y, above.bounds.min.y, above.bounds.center.x);
-                }
-            }
+                midOfLadder = centerOfCell.x;
+            } 
 
             return isDetected;
         }
 
-        public bool TryGetLadderOnTop(out Ladder ladder)
+        private bool IsLaderDetected(LadderPlace place)
         {
-            ladder = new Ladder();
-            bool isDetected = false;
-
-            Collider2D under = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + firstOffset), targetLayer);
-            Collider2D above = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + secondOffset), targetLayer);
-
-            if (under != null && above == null)
+            return place switch
             {
-                if (isDetected = above.CompareTag(targetTag))
-                {
-                    ladder.Set(under.bounds.max.y, under.bounds.min.y, under.bounds.center.x);
-                }
-            }
-
-            return isDetected;
+                LadderPlace.Top => DownHitPoint && !MiddleHitPoint,
+                LadderPlace.Mid => UpHitPoint && MiddleHitPoint,
+                LadderPlace.Bottom => !DownHitPoint && MiddleHitPoint,
+                _ => default
+            };
         }
 
-        public bool TryGetLadderOnCenter(out Ladder ladder)
-        {
-            ladder = new Ladder();
-            bool isDetected = false;
 
-            Collider2D top = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + thirdOffset), targetLayer);
-            Collider2D bot = Physics2D.OverlapPoint(new Vector2(InitSensorPosition.x, InitSensorPosition.y + secondOffset), targetLayer);
-
-            if (top != null && top != null)
-            {
-                if (isDetected = bot.CompareTag(targetTag) && top.CompareTag(targetTag))
-                {
-                    ladder.Set(bot.bounds.max.y, bot.bounds.min.y, bot.bounds.center.x);
-                }
-            }
-
-            return isDetected;
-        }
+        private Vector2 GetDetectedPosition() => DownHitPoint 
+            ? DownPointPosition 
+            : MiddlePointPosition;
 
 
         protected override void DrawRay()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + firstOffset), 0.02f);
-            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + secondOffset), 0.02f);
-            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + thirdOffset), 0.02f);
+            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + upPoinByY), 0.02f);
+            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + middlePoinByY), 0.02f);
+            Gizmos.DrawWireSphere(new Vector2(InitSensorPosition.x, InitSensorPosition.y + downPointByY), 0.02f);
         }
+    }
+
+    public enum LadderPlace : byte
+    {
+        Top = 0,
+        Mid = 1,
+        Bottom = 2,
     }
 }
