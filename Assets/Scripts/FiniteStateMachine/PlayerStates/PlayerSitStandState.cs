@@ -72,7 +72,7 @@ namespace FiniteStateMachine.PlayerStates
             if (player.Input.InputVertical == Vector2.down.y)
             {
                 if (!sensorCore.GroundDetector.IsOneWayPlatformDetect()) return;
-                bodyCore.PlatformCollision.IgnoreOneWayPlatform();
+                collisionCore.PlatformCollision.IgnoreOneWayPlatform();
             }
             else
             {

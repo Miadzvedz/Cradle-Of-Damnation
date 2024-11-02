@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.Tilemaps;
 
 
 namespace CoreSystem.CoreComponents.SensorDetectComponents
 {
     public class LadderDetector : SensorDetectComponent
     {
-        [SerializeField] private Tilemap tilemap;
         [SerializeField] private Grid grid;
         [SerializeField] public string targetTag;
         [SerializeField] public LayerMask targetLayer;
@@ -33,11 +31,11 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
 
 
 
-        public bool TryGetMidOfLadder(out float midOfLadder, LadderPlace place)
+        public bool TryGetMidOfLadder(out float midOfLadder, LadderPlace fromPlace)
         {
             midOfLadder = default;
 
-            bool isDetected = IsLaderDetected(place);
+            bool isDetected = IsLaderDetected(fromPlace);
 
             if (isDetected)
             {
@@ -45,10 +43,11 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
                 Vector3Int cellPosition = grid.WorldToCell(detectedPosition);
                 Vector3 centerOfCell = grid.GetCellCenterWorld(cellPosition);
                 midOfLadder = centerOfCell.x;
-            } 
+            }
 
             return isDetected;
         }
+
 
         private bool IsLaderDetected(LadderPlace place)
         {

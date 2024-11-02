@@ -16,7 +16,7 @@ namespace FiniteStateMachine.PlayerStates
         protected PhysicsManipulation physicsCore;
         protected SensorDetect sensorCore;
         protected VisualFx visualFxCore;
-        protected CollisionManipulation bodyCore;
+        protected CollisionManipulation collisionCore;
         #endregion
 
         public PlayerState(StateMachine stateMachine, Player player)
@@ -26,7 +26,7 @@ namespace FiniteStateMachine.PlayerStates
             physicsCore = player.Core.Physics;
             sensorCore = player.Core.Sensor;
             visualFxCore = player.Core.VisualFx;
-            bodyCore = player.Core.Body;
+            collisionCore = player.Core.Collision;
         }
 
         public virtual void Enter()

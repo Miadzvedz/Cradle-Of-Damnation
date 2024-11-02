@@ -38,7 +38,7 @@ namespace FiniteStateMachine.PlayerStates
             finishTime = Time.time + player.Data.SlideTime;
 
             physicsCore.Freezing.ResetFreezePos();
-            bodyCore.BodyCollision.SetColliderHeight(player.Data.CrouchColiderHeight);
+            collisionCore.BodyCollision.SetColliderHeight(player.Data.CrouchColiderHeight);
 
             player.Animator.SetBool(hashIsMoving, true);
             player.Animator.Play(hashStartDash);

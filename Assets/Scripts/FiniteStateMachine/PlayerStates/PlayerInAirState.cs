@@ -29,7 +29,7 @@ namespace FiniteStateMachine.PlayerStates
             player.Input.DashEvent += OnAirDash;
 
             physicsCore.Freezing.ResetFreezePos();
-            bodyCore.BodyCollision.SetColliderHeight(player.Data.StandColiderHeight);
+            collisionCore.BodyCollision.SetColliderHeight(player.Data.StandColiderHeight);
 
             player.Animator.Play(hashInAir);
         }

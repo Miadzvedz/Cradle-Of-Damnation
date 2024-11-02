@@ -56,7 +56,7 @@ namespace FiniteStateMachine.PlayerStates
         private void OnJumpFromOneWayPlatform()
         {
             if (!sensorCore.GroundDetector.IsOneWayPlatformDetect()) return;
-            bodyCore.PlatformCollision.IgnoreOneWayPlatform();
+            collisionCore.PlatformCollision.IgnoreOneWayPlatform();
         }
     }
 }

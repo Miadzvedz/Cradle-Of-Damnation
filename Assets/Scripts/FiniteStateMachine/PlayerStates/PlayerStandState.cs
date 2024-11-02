@@ -1,4 +1,3 @@
-using CoreSystem;
 using CoreSystem.CoreComponents.SensorDetectComponents;
 using Entities;
 using Pool.ItemsPool.AnimationPool;
@@ -40,16 +39,22 @@ namespace FiniteStateMachine.PlayerStates
             {
                 if (sensorCore.LadderDetector.TryGetMidOfLadder(out float midOfLadder, LadderPlace.Bottom))
                 {
-                    PlayerOnLadderState.Position = new Vector2(midOfLadder, player.transform.position.y);
-                    stateMachine.ChangeState(player.OnLadderState);
+                    player.ToLadderState.Initialize(
+                        new Vector2(midOfLadder, player.transform.position.y),
+                        LadderPlace.Bottom);
+
+                    stateMachine.ChangeState(player.ToLadderState);
                 }
             }
             else if (player.Input.InputVertical == Vector2.down.y)
             {
                 if (sensorCore.LadderDetector.TryGetMidOfLadder(out float midOfLadder, LadderPlace.Top))
                 {
-                    PlayerOnLadderState.Position = new Vector2(midOfLadder, sensorCore.GroundDetector.GroundHit.point.y);
-                    stateMachine.ChangeState(player.OnLadderState);
+                    player.ToLadderState.Initialize(
+                        new Vector2(midOfLadder, sensorCore.GroundDetector.GroundHit.point.y),
+                        LadderPlace.Top);
+
+                    stateMachine.ChangeState(player.ToLadderState);
                 }
                 else
                 {

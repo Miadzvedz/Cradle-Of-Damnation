@@ -11136,7 +11136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShowRay: 1
-  tilemap: {fileID: 607011118}
   grid: {fileID: 893964105}
   targetTag: Ladder
   targetLayer:

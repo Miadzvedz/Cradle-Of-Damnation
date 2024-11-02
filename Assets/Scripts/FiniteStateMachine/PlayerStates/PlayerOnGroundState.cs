@@ -20,7 +20,7 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.Enter();
 
-            bodyCore.BodyCollision.SetColliderHeight(ColiderHeight);           
+            collisionCore.BodyCollision.SetColliderHeight(ColiderHeight);           
         }
 
         public override void LogicUpdate() 

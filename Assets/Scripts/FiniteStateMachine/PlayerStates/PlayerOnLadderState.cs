@@ -7,7 +7,6 @@ namespace FiniteStateMachine.PlayerStates
     public sealed class PlayerOnLadderState : PlayerState
     {
         private readonly int hashOnLadder = Animator.StringToHash("OnLadder");
-        public static Vector2 Position { get; set; } 
 
         public PlayerOnLadderState(StateMachine stateMachine, Player player) : base(stateMachine, player)
         {
@@ -16,9 +15,6 @@ namespace FiniteStateMachine.PlayerStates
         public override void Enter()
         {
             base.Enter();
-
-            Debug.Log(Position);
-            player.transform.position = Position;
          
             physicsCore.Gravitation.GravitationOff();
             physicsCore.Movement.SetVelocityZero();
