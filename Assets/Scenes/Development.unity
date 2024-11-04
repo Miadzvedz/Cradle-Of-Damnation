@@ -11691,6 +11691,7 @@ MonoBehaviour:
   <Data>k__BackingField:
     <StandMoveSpeed>k__BackingField: 6
     <InAirMoveSpeed>k__BackingField: 6
+    <OnLadderMoveSpeed>k__BackingField: 1.8
     <JumpForce>k__BackingField: 13.7
     <DoubleJumpForce>k__BackingField: 10
     <WallJumpTime>k__BackingField: 0.15

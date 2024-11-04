@@ -8,7 +8,7 @@ namespace FiniteStateMachine.PlayerStates
     {
         private readonly int hashTopToLadder = Animator.StringToHash("TopToLadder");
         private readonly int hashBottomToLadder = Animator.StringToHash("BottomToLadder");
-        private readonly float offsetPosition = 1.3f;
+        private readonly float offsetPosition = 1.15f;
         private Vector2 position;
         private LadderPlace fromPlace;
 

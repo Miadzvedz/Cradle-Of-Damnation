@@ -10,6 +10,7 @@ namespace Entities
         [field: Header("MOVEMENT")]
         [field: SerializeField] public float StandMoveSpeed { get; private set; }
         [field: SerializeField] public float InAirMoveSpeed { get; private set; }
+        [field: SerializeField] public float OnLadderMoveSpeed { get; private set; }
 
         [field: Header("JUMPING")]
         [field: SerializeField] public float JumpForce { get; private set; }

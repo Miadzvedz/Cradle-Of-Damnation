@@ -59,10 +59,13 @@ namespace FiniteStateMachine.PlayerStates
             }
             else
 			{
-                visualFxCore.AnimationFx.CreateAnimationFX(
-                    DustType.JumpFromGround,
-                    sensorCore.GroundDetector.GroundHit.point,
-                    player.transform.rotation);
+				if(isGrounded)
+				{
+                    visualFxCore.AnimationFx.CreateAnimationFX(
+						DustType.JumpFromGround,
+						sensorCore.GroundDetector.GroundHit.point,
+						player.transform.rotation);
+                }
 
                 physicsCore.Movement.SetVelocityY(player.Data.JumpForce);
                 jumpUpdate = UpdateJump;
