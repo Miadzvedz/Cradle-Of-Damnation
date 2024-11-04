@@ -11099,7 +11099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShowRay: 0
-  circleRadius: 0.2
+  circleRadius: 0.18
   positionOffsetY: 0.4
   targetLayer:
     serializedVersion: 2
