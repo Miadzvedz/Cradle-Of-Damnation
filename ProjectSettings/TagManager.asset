@@ -48,15 +48,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: TileMap
+  - name: Ground
     uniqueID: 646239603
     locked: 0
-  - name: DownEffect
-    uniqueID: 2984458203
+  - name: Interactables
+    uniqueID: 3336536075
+    locked: 0
+  - name: Shadows
+    uniqueID: 2163556513
+    locked: 0
+  - name: Ladders
+    uniqueID: 4205153705
+    locked: 0
+  - name: DownEffects
+    uniqueID: 3065355309
     locked: 0
   - name: Player
     uniqueID: 1651893771
     locked: 0
-  - name: TopEffect
+  - name: TopEffects
     uniqueID: 1629420375
     locked: 0
