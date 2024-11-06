@@ -11116,7 +11116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfe2f11186e6ad42b95f9ef0f70af55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShowRay: 0
+  isShowRay: 1
   hitDistance: 0.8
   platformTag: Platform
   oneWayPlatformTag: OneWayPlatform

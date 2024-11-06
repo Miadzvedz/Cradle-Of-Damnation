@@ -80,6 +80,7 @@ namespace FiniteStateMachine.PlayerStates
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
+
             if (isMoving)
             {
                 physicsCore.Movement.MoveAlongSurface(player.Data.SlideSpeed, physicsCore.Flipping.FacingDirection);
