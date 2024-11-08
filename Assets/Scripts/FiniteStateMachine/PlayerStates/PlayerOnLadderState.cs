@@ -1,5 +1,7 @@
-﻿using Entities;
+﻿using CoreSystem.CoreComponents.SensorDetectComponents;
+using Entities;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 namespace FiniteStateMachine.PlayerStates
@@ -8,6 +10,11 @@ namespace FiniteStateMachine.PlayerStates
     {
         private readonly int hashOnLadder = Animator.StringToHash("OnLadder");
         private readonly int verticalMoving = Animator.StringToHash("verticalMoving");
+        private bool isMoovingUp;
+        private bool isMoovingDown;
+        private bool isGrounded;
+        private bool isOnLadder;
+        private bool isTopLadderDetected;
 
         public PlayerOnLadderState(StateMachine stateMachine, Player player) : base(stateMachine, player)
         {
@@ -32,6 +39,36 @@ namespace FiniteStateMachine.PlayerStates
 
             player.Animator.SetFloat(verticalMoving, player.Input.InputVertical);
 
+            physicsCore.Flipping.FlipToDirection(player.Input.InputHorizontal);
+
+            isMoovingDown = player.Input.IsDownInput;
+            isMoovingUp = player.Input.IsUpInput;
+
+            if (isMoovingDown)
+            {             
+                if (isGrounded)
+                {
+                    player.FromLadderState.Initialize(
+                        sensorCore.GroundDetector.GroundHit.point,
+                        LadderPlace.Bottom);
+
+                    stateMachine.ChangeState(player.FromLadderState);
+                }
+            }
+
+            if (isMoovingUp)
+            {
+                if (isTopLadderDetected)
+                {
+                    stateMachine.ChangeState(player.FromLadderState);
+                }
+            }
+
+            if (!isOnLadder)
+            {
+                if (isGrounded) stateMachine.ChangeState(player.InAirState);
+                else stateMachine.ChangeState(player.InAirState);
+            }
         }
 
         public override void PhysicsUpdate()
@@ -41,9 +78,33 @@ namespace FiniteStateMachine.PlayerStates
             physicsCore.Movement.SetVelocityY(player.Input.InputVertical * player.Data.OnLadderMoveSpeed);
         }
 
+        public override void DoCheck()
+        {
+            base.DoCheck();
+
+            isOnLadder = sensorCore.LadderDetector.IsOnLadder();
+
+            if (isMoovingUp)
+            {
+                if (isTopLadderDetected = sensorCore.LadderDetector.TryGetTopOfLadderPosition(out Vector2 position))
+                    player.FromLadderState.Initialize(position, LadderPlace.Top);
+            }
+
+            if (isMoovingDown)
+            {
+                isGrounded = sensorCore.GroundDetector.IsGroundDetect(Physics2D.defaultContactOffset);
+            }
+
+        }
+
         public override void Exit()
         {
             base.Exit();
+
+            isGrounded = false;
+            isTopLadderDetected = false;
+            isMoovingDown = false;
+            isMoovingUp = false;
 
             player.Input.JumpEvent -= OnJump;
         }

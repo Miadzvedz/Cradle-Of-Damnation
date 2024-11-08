@@ -27,7 +27,7 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.LogicUpdate();
 
-            if (player.Input.InputVertical == Vector2.up.y && isHanging)
+            if (player.Input.IsUpInput && isHanging)
             {
                 stateMachine.ChangeState(player.ClimbState);
             }

@@ -10953,7 +10953,7 @@ Transform:
   m_GameObject: {fileID: 1444150607}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -53.5, y: 1.5, z: -10}
+  m_LocalPosition: {x: -53.5, y: -1.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11117,7 +11117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShowRay: 1
-  hitDistance: 0.8
+  hitDistance: 0.1
+  positionOffset: -0.1
   platformTag: Platform
   oneWayPlatformTag: OneWayPlatform
   targetLayer:
@@ -11141,9 +11142,10 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
-  upPoinByY: 1.38
-  middlePoinByY: 0.05
-  downPointByY: -0.05
+  upOutsidePoint: 0.6
+  upInsidePoint: 0.4
+  downInsidePoint: -0.4
+  downOutsidePoint: -0.71
 --- !u!1 &1623446120
 GameObject:
   m_ObjectHideFlags: 0
@@ -11544,7 +11546,7 @@ Transform:
   m_GameObject: {fileID: 1892614046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -53.5, y: 1.5, z: -10}
+  m_LocalPosition: {x: -53.5, y: -1.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11794,7 +11796,7 @@ Transform:
   m_GameObject: {fileID: 332105253614478520}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -53.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: -53.5, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:

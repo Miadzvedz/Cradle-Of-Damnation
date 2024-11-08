@@ -1,6 +1,4 @@
-﻿using CoreSystem.CoreComponents.SensorDetectComponents;
-using Entities;
-using UnityEngine;
+﻿using Entities;
 
 
 namespace FiniteStateMachine.PlayerStates

@@ -8,6 +8,7 @@ namespace FiniteStateMachine.PlayerStates
     {
         private readonly int hashTopToLadder = Animator.StringToHash("TopToLadder");
         private readonly int hashBottomToLadder = Animator.StringToHash("BottomToLadder");
+        private readonly int hashMidToLadder = Animator.StringToHash("MidToLadder");
         private readonly float offsetPosition = 1.12f;
         private Vector2 position;
         private LadderPlace fromPlace;
@@ -28,7 +29,9 @@ namespace FiniteStateMachine.PlayerStates
             if (fromPlace.Equals(LadderPlace.Top))          
                 player.Animator.Play(hashTopToLadder);           
             else if (fromPlace.Equals(LadderPlace.Bottom))
-                player.Animator.Play(hashBottomToLadder);            
+                player.Animator.Play(hashBottomToLadder);
+            else if (fromPlace.Equals(LadderPlace.Mid))
+                player.Animator.Play(hashMidToLadder);
         }
 
         public override void LogicUpdate()
@@ -45,10 +48,13 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.Exit();
 
-            collisionCore.PlatformCollision.IgnoreOneWayPlatform();
-            
-            var tempVector = new Vector3(player.transform.position.x, player.transform.position.y - offsetPosition);
-            player.transform.position = tempVector;
+            if (fromPlace.Equals(LadderPlace.Top))
+            {
+                collisionCore.PlatformCollision.IgnoreOneWayPlatform();
+                var tempVector = new Vector3(player.transform.position.x, player.transform.position.y - offsetPosition);
+                player.transform.position = tempVector;
+            }
+
         }
 
         public void Initialize(Vector2 position, LadderPlace fromPlace)

@@ -35,9 +35,9 @@ namespace FiniteStateMachine.PlayerStates
 
             player.Animator.SetBool(hashIsMoving, player.Input.InputHorizontal != default);
 
-            if (player.Input.InputVertical == Vector2.up.y)
+            if (player.Input.IsUpInput)
             {
-                if (sensorCore.LadderDetector.TryGetMidOfLadder(out float midOfLadder, LadderPlace.Bottom))
+                if (sensorCore.LadderDetector.TryGetVerticalÌidOfLadder(out float midOfLadder, LadderPlace.Bottom))
                 {
                     player.ToLadderState.Initialize(
                         new Vector2(midOfLadder, player.transform.position.y),
@@ -46,9 +46,9 @@ namespace FiniteStateMachine.PlayerStates
                     stateMachine.ChangeState(player.ToLadderState);
                 }
             }
-            else if (player.Input.InputVertical == Vector2.down.y)
+            else if (player.Input.IsDownInput)
             {
-                if (sensorCore.LadderDetector.TryGetMidOfLadder(out float midOfLadder, LadderPlace.Top))
+                if (sensorCore.LadderDetector.TryGetVerticalÌidOfLadder(out float midOfLadder, LadderPlace.Top))
                 {
                     player.ToLadderState.Initialize(
                         new Vector2(midOfLadder, sensorCore.GroundDetector.GroundHit.point.y),

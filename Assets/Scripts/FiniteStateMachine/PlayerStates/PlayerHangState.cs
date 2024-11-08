@@ -32,7 +32,7 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.LogicUpdate();
 
-            if (player.Input.InputVertical == Vector2.down.y && isHanging)
+            if (player.Input.IsDownInput && isHanging)
             {
                 isReady = false;
                 player.StartCoroutine(CoolDown(0.2f));

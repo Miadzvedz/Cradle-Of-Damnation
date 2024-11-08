@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using CoreSystem.CoreComponents.SensorDetectComponents;
+using Entities;
 using UnityEngine;
 
 namespace FiniteStateMachine.PlayerStates
@@ -37,6 +38,18 @@ namespace FiniteStateMachine.PlayerStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+
+            if (player.Input.IsUpInput)
+            {
+                if (sensorCore.LadderDetector.TryGetVerticalМidOfLadder(out float midOfLadder, LadderPlace.Mid))
+                {
+                    player.ToLadderState.Initialize(
+                        new Vector2(midOfLadder, player.transform.position.y),
+                        LadderPlace.Mid);
+
+                    stateMachine.ChangeState(player.ToLadderState);
+                }
+            }
 
             if (isOneWayPlatform || isPlatform)
             {               

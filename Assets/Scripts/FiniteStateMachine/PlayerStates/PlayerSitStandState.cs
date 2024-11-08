@@ -69,7 +69,7 @@ namespace FiniteStateMachine.PlayerStates
 
         private void OnJump()
         {
-            if (player.Input.InputVertical == Vector2.down.y)
+            if (player.Input.IsDownInput)
             {
                 if (!sensorCore.GroundDetector.IsOneWayPlatformDetect()) return;
                 collisionCore.PlatformCollision.IgnoreOneWayPlatform();
