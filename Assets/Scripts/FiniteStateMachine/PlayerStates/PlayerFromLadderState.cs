@@ -23,8 +23,8 @@ namespace FiniteStateMachine.PlayerStates
             base.Enter();
 
             player.transform.position = new Vector2(position.x, position.y + offsetPosition);
-         
-            physicsCore.Gravitation.GravitationOff();
+
+            physicsCore.Freezing.FreezePosY();
             physicsCore.Movement.SetVelocityZero();
 
             if (fromPlace.Equals(LadderPlace.Top))
@@ -47,7 +47,7 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.Exit();
 
-            physicsCore.Gravitation.GravitationOn();
+            physicsCore.Freezing.ResetFreezePos();
         }
 
         public void Initialize(Vector2 position, LadderPlace fromPlace)

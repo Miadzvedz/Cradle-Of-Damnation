@@ -1,7 +1,6 @@
 ﻿using CoreSystem.CoreComponents.SensorDetectComponents;
 using Entities;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 
 namespace FiniteStateMachine.PlayerStates
@@ -18,7 +17,6 @@ namespace FiniteStateMachine.PlayerStates
 
         public PlayerOnLadderState(StateMachine stateMachine, Player player) : base(stateMachine, player)
         {
-
         }
 
         public override void Enter()
@@ -28,6 +26,7 @@ namespace FiniteStateMachine.PlayerStates
             player.Input.JumpEvent += OnJump;
 
             physicsCore.Gravitation.GravitationOff();
+            physicsCore.Freezing.FreezePosX();
             physicsCore.Movement.SetVelocityZero();
 
             player.Animator.Play(hashOnLadder);
@@ -105,6 +104,8 @@ namespace FiniteStateMachine.PlayerStates
             isTopLadderDetected = false;
             isMoovingDown = false;
             isMoovingUp = false;
+
+            physicsCore.Gravitation.GravitationOn();
 
             player.Input.JumpEvent -= OnJump;
         }

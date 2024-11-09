@@ -2,6 +2,7 @@
 using Entities;
 using UnityEngine;
 
+
 namespace FiniteStateMachine.PlayerStates
 {
     public sealed class PlayerToLadderState : PlayerState
@@ -22,8 +23,8 @@ namespace FiniteStateMachine.PlayerStates
             base.Enter();
 
             player.transform.position = position;
-         
-            physicsCore.Gravitation.GravitationOff();
+
+            physicsCore.Freezing.FreezePosY();
             physicsCore.Movement.SetVelocityZero();
 
             if (fromPlace.Equals(LadderPlace.Top))          
@@ -47,6 +48,8 @@ namespace FiniteStateMachine.PlayerStates
         public override void Exit()
         {
             base.Exit();
+
+            physicsCore.Freezing.ResetFreezePos();
 
             if (fromPlace.Equals(LadderPlace.Top))
             {
