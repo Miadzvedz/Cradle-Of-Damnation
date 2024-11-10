@@ -1,5 +1,6 @@
 ﻿using CoreSystem.CoreComponents.SensorDetectComponents;
 using Entities;
+using Pool.ItemsPool.AnimationPool;
 using UnityEngine;
 
 
@@ -28,9 +29,17 @@ namespace FiniteStateMachine.PlayerStates
             physicsCore.Movement.SetVelocityZero();
 
             if (fromPlace.Equals(LadderPlace.Top))
+            {
                 player.Animator.Play(hashLadderToTop);
+            }
             else if (fromPlace.Equals(LadderPlace.Bottom))
+            {
                 player.Animator.Play(hashLadderToBottom);
+
+                visualFxCore.AnimationFx.CreateAnimationFX(
+                    DustType.AfterMove,
+                    position, player.transform.rotation);
+            }
         }
 
         public override void LogicUpdate()

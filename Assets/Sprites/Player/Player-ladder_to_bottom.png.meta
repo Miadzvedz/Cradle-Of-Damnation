@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 93bcd60a2e20c9d4d85094d68957924b
+guid: 58acd6e6e5dc59445ad34dce4839407f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player-ladder_to_stand_0
+      name: Player-ladder_to_bottom_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4206a796c62d17f4fb94c3de4b5eaf9d
-      internalID: 97531023
+      spriteID: 1c2b78b5f72b9b44ebcf41be043d01c7
+      internalID: -2130950172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player-ladder_to_stand_1
+      name: Player-ladder_to_bottom_1
       rect:
         serializedVersion: 2
         x: 100
@@ -145,92 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9c3d32375a86d24ca2edeba1fe6acdb
-      internalID: -172877943
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player-ladder_to_stand_2
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 100
-        height: 120
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a15e83c41c8c3134ca6d254da8d1d6a8
-      internalID: 1220044437
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player-ladder_to_stand_3
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 100
-        height: 120
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5384a68008a44c34c9d5f400c4681e0e
-      internalID: 577841569
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player-ladder_to_stand_4
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 0
-        width: 100
-        height: 120
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c9d0bc2fb37bbbf488934befd9ce4338
-      internalID: 1105211290
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player-ladder_to_stand_5
-      rect:
-        serializedVersion: 2
-        x: 500
-        y: 0
-        width: 100
-        height: 120
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df8c886588af0544fa6b0f7dd022c9dd
-      internalID: -1284430329
+      spriteID: af4a46e6e117fd3498bfce9e1725c28a
+      internalID: -1543951552
       vertices: []
       indices: 
       edges: []
@@ -246,12 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player-ladder_to_stand_0: 97531023
-      Player-ladder_to_stand_1: -172877943
-      Player-ladder_to_stand_2: 1220044437
-      Player-ladder_to_stand_3: 577841569
-      Player-ladder_to_stand_4: 1105211290
-      Player-ladder_to_stand_5: -1284430329
+      Player-ladder_to_bottom_0: -2130950172
+      Player-ladder_to_bottom_1: -1543951552
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
