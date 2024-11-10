@@ -23,23 +23,25 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.Enter();
 
-            player.transform.position = new Vector2(position.x, position.y + offsetPosition);
-
-            physicsCore.Freezing.FreezePosY();
-            physicsCore.Movement.SetVelocityZero();
-
             if (fromPlace.Equals(LadderPlace.Top))
             {
+                player.transform.position = new Vector2(position.x, position.y + offsetPosition);
+
                 player.Animator.Play(hashLadderToTop);
             }
             else if (fromPlace.Equals(LadderPlace.Bottom))
             {
+                player.transform.position = position;
+
                 player.Animator.Play(hashLadderToBottom);
 
                 visualFxCore.AnimationFx.CreateAnimationFX(
                     DustType.AfterMove,
                     position, player.transform.rotation);
             }
+
+            physicsCore.Movement.SetVelocityZero();
+            physicsCore.Freezing.FreezePosY();
         }
 
         public override void LogicUpdate()

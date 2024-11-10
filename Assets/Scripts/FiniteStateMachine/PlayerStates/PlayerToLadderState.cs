@@ -26,10 +26,14 @@ namespace FiniteStateMachine.PlayerStates
             physicsCore.Freezing.FreezePosY();
             physicsCore.Movement.SetVelocityZero();
 
-            if (fromPlace.Equals(LadderPlace.Top))          
-                player.Animator.Play(hashTopToLadder);           
+            if (fromPlace.Equals(LadderPlace.Top))
+            {
+                player.Animator.Play(hashTopToLadder);
+            }                   
             else if (fromPlace.Equals(LadderPlace.Bottom))
+            {
                 player.Animator.Play(hashBottomToLadder);
+            }
         }
 
         public override void LogicUpdate()
