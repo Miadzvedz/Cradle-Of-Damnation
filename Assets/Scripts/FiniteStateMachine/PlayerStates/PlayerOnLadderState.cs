@@ -106,6 +106,7 @@ namespace FiniteStateMachine.PlayerStates
             isMoovingUp = false;
 
             physicsCore.Gravitation.GravitationOn();
+            physicsCore.Freezing.ResetFreezePos();
 
             player.Input.JumpEvent -= OnJump;
         }
@@ -114,7 +115,6 @@ namespace FiniteStateMachine.PlayerStates
         #region Input
         private void OnJump()
         {
-            physicsCore.Gravitation.GravitationOn();
             stateMachine.ChangeState(player.JumpState);
         }
         #endregion
