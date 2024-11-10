@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace Pool.ItemsPool
+namespace Pool.ItemsPool.AnimationPool
 {
     public sealed class Dust : AnimationEffect<DustType>
     {

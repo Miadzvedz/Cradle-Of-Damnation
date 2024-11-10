@@ -8,7 +8,12 @@ public sealed class InputReader : MonoBehaviour, Controls.IPlayerActions
     private float inputX;
     private float inputY;
     public int InputHorizontal { get; private set;}
-    public int InputVertical { get; private set; }       
+    public int InputVertical { get; private set; }
+    public bool IsUpInput => InputVertical == Vector2.up.y;
+    public bool IsDownInput => InputVertical == Vector2.down.y;
+    public bool IsRightInput => InputVertical == Vector2.right.x;
+    public bool IsLeftInput => InputVertical == Vector2.left.y;
+
     [field: SerializeField] public float StickDeadzone { get; private set; }
     #endregion
 

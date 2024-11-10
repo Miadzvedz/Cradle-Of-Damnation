@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Pool.ItemsPool;
+using Pool.ItemsPool.AnimationPool;
 using System.Collections;
 using UnityEngine;
 
@@ -38,7 +38,7 @@ namespace FiniteStateMachine.PlayerStates
             finishTime = Time.time + player.Data.SlideTime;
 
             physicsCore.Freezing.ResetFreezePos();
-            bodyCore.BodyCollision.SetColliderHeight(player.Data.CrouchColiderHeight);
+            collisionCore.BodyCollision.SetColliderHeight(player.Data.CrouchColiderHeight);
 
             player.Animator.SetBool(hashIsMoving, true);
             player.Animator.Play(hashStartDash);
@@ -80,6 +80,7 @@ namespace FiniteStateMachine.PlayerStates
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
+
             if (isMoving)
             {
                 physicsCore.Movement.MoveAlongSurface(player.Data.SlideSpeed, physicsCore.Flipping.FacingDirection);

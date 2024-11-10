@@ -2,7 +2,6 @@ using FiniteStateMachine;
 using UnityEngine;
 using Interfaces;
 using CoreSystem;
-using CoreSystem.CoreComponents;
 
 
 namespace Entities

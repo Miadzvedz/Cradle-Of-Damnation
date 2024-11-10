@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 
 namespace CoreSystem.CoreComponents.SensorDetectComponents
@@ -36,7 +37,7 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
             return WallHitUp.collider.CompareTag(targetTag) && WallHitDown.collider.CompareTag(targetTag);
         }
 
-        public bool GetDetectedGrabWallPosition(out Vector2 wallPosition)
+        public bool TryGetGrabWallPosition(out Vector2 wallPosition)
         {
             wallPosition = Vector2.zero;
             bool isDetected = IsGrabWallDetect();

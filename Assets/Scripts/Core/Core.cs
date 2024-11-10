@@ -10,7 +10,7 @@ namespace CoreSystem
         public PhysicsManipulation Physics { get; private set; }
         public SensorDetect Sensor { get; private set; }
         public VisualFx VisualFx { get; private set; }
-        public CollisionManipulation Body { get; private set; }
+        public CollisionManipulation Collision { get; private set; }
 
 
         public void Awake()
@@ -18,14 +18,14 @@ namespace CoreSystem
             Sensor = GetComponentInChildren<SensorDetect>();
             Physics = GetComponentInChildren<PhysicsManipulation>();
             VisualFx = GetComponentInChildren<VisualFx>();
-            Body = GetComponentInChildren<CollisionManipulation>();
+            Collision = GetComponentInChildren<CollisionManipulation>();
         }
 
         public void LogicUpdate()
         {
             Physics.LogicUpdate();
             VisualFx.LogicUpdate();
-            Body.LogicUpdate();
+            Collision.LogicUpdate();
             Sensor.LogicUpdate();
         }
     }

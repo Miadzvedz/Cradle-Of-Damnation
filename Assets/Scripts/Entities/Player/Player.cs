@@ -25,6 +25,9 @@ namespace Entities
         public PlayerKnockBackState KnockBackState { get; private set; }   
         public PlayerHangOnGirderState HangOnGirderState { get; private set; }
         public PlayerHangOnLedgeState HangOnLedgeState { get; private set; }
+        public PlayerOnLadderState OnLadderState { get; private set; }
+        public PlayerToLadderState ToLadderState { get; private set; }
+        public PlayerFromLadderState FromLadderState { get; private set; }
         #endregion
 
         protected override void Awake()
@@ -44,6 +47,9 @@ namespace Entities
             AirDashState = new PlayerAirDashState(stateMachine, this);
             KnockBackState = new PlayerKnockBackState(stateMachine, this);
             HangOnGirderState = new PlayerHangOnGirderState(stateMachine, this);
+            OnLadderState = new PlayerOnLadderState(stateMachine, this);
+            ToLadderState = new PlayerToLadderState(stateMachine, this);
+            FromLadderState = new PlayerFromLadderState(stateMachine, this);
 
             Input = GetComponent<InputReader>();
         }

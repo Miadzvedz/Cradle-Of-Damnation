@@ -1,6 +1,5 @@
 ﻿using Entities;
-using Extensions;
-using Pool.ItemsPool;
+using Pool.ItemsPool.AnimationPool;
 using UnityEngine;
 
 namespace FiniteStateMachine.PlayerStates
@@ -28,7 +27,7 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.LogicUpdate();
 
-            if (player.Input.InputVertical == Vector2.up.y && isHanging)
+            if (player.Input.IsUpInput && isHanging)
             {
                 stateMachine.ChangeState(player.ClimbState);
             }

@@ -1,5 +1,4 @@
 ﻿using Entities;
-using UnityEngine;
 
 
 namespace FiniteStateMachine.PlayerStates
@@ -19,9 +18,10 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.Enter();
 
-            bodyCore.BodyCollision.SetColliderHeight(ColiderHeight);
+            collisionCore.BodyCollision.SetColliderHeight(ColiderHeight);           
         }
-        public override void LogicUpdate()
+
+        public override void LogicUpdate() 
         {
             base.LogicUpdate();
 

@@ -9,6 +9,7 @@ namespace CoreSystem.CoreComponents
         public LedgeDetector LedgeDetector { get; private set; }
         public CeilingDetector CeilingDetector { get; private set; }
         public GirderDetector GirderDetector { get; private set; }
+        public LadderDetector LadderDetector { get; private set; }
 
 
         protected override void Awake()
@@ -20,6 +21,7 @@ namespace CoreSystem.CoreComponents
             LedgeDetector = GetComponent<LedgeDetector>();
             CeilingDetector = GetComponent<CeilingDetector>();
             GirderDetector = GetComponent<GirderDetector>();
+            LadderDetector = GetComponent<LadderDetector>();
         }
 
         public override void LogicUpdate()

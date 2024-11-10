@@ -1,6 +1,8 @@
+using CoreSystem.CoreComponents.SensorDetectComponents;
 using Entities;
-using Pool.ItemsPool;
+using Pool.ItemsPool.AnimationPool;
 using UnityEngine;
+
 
 namespace FiniteStateMachine.PlayerStates
 {
@@ -31,11 +33,33 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.LogicUpdate();
 
-            player.Animator.SetBool(hashIsMoving, player.Input.InputHorizontal != default);  
-            
-            if(player.Input.InputVertical == Vector2.down.y)
+            player.Animator.SetBool(hashIsMoving, player.Input.InputHorizontal != default);
+
+            if (player.Input.IsUpInput)
             {
-                stateMachine.ChangeState(player.SitStandState);
+                if (sensorCore.LadderDetector.TryGetVerticalÌidOfLadder(out float midOfLadder, LadderPlace.Bottom))
+                {
+                    player.ToLadderState.Initialize(
+                        new Vector2(midOfLadder, player.transform.position.y),
+                        LadderPlace.Bottom);
+
+                    stateMachine.ChangeState(player.ToLadderState);
+                }
+            }
+            else if (player.Input.IsDownInput)
+            {
+                if (sensorCore.LadderDetector.TryGetVerticalÌidOfLadder(out float midOfLadder, LadderPlace.Top))
+                {
+                    player.ToLadderState.Initialize(
+                        new Vector2(midOfLadder, sensorCore.GroundDetector.GroundHit.point.y),
+                        LadderPlace.Top);
+
+                    stateMachine.ChangeState(player.ToLadderState);
+                }
+                else
+                {
+                    stateMachine.ChangeState(player.SitStandState);
+                }
             }
         }
 
@@ -79,7 +103,7 @@ namespace FiniteStateMachine.PlayerStates
         }
 
         #region Input
-		private void OnJump()
+        private void OnJump()
 		{
             stateMachine.ChangeState(player.JumpState); 
         }

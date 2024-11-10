@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Pool.ItemsPool
+namespace Pool.ItemsPool.AnimationPool
 {
     public sealed class AbilityFx : AnimationEffect<AbilityFXType>
     {

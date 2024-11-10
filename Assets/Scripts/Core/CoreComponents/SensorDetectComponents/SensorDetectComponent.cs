@@ -20,14 +20,15 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
 
         protected virtual void Awake()
         {
-            this.core = GetComponent<SensorDetect>().Core;
+            core = GetComponent<SensorDetect>().Core;
             entityCollider = core.GetComponentInParent<CapsuleCollider2D>();
             CreateSensor();          
         }
 
+
         private void CreateSensor()
         {
-            GameObject obj = new GameObject(SensorName);
+            GameObject obj = new(SensorName);
             obj.transform.parent = transform;
             obj.transform.position = InitSensorPosition;
             sensor = obj.transform;
@@ -48,6 +49,5 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
         {
             DrawGizmos();
         }
-
     }
 }

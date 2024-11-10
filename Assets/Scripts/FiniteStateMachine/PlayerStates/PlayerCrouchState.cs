@@ -27,7 +27,7 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.LogicUpdate();
           
-            if (player.Input.InputVertical != Vector2.down.y)
+            if (!player.Input.IsDownInput)
             {
                 stateMachine.ChangeState(player.SitStandState);
             }
@@ -56,7 +56,7 @@ namespace FiniteStateMachine.PlayerStates
         private void OnJumpFromOneWayPlatform()
         {
             if (!sensorCore.GroundDetector.IsOneWayPlatformDetect()) return;
-            bodyCore.PlatformCollision.IgnoreOneWayPlatform();
+            collisionCore.PlatformCollision.IgnoreOneWayPlatform();
         }
     }
 }

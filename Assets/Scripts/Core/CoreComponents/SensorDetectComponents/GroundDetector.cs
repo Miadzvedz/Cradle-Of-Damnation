@@ -6,15 +6,15 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
     public class GroundDetector : SensorDetectComponent
     {
         [SerializeField] private float hitDistance;
-        [SerializeField] public string platformTag;
-        [SerializeField] public string oneWayPlatformTag;
-        [SerializeField] public LayerMask targetLayer;
+        [SerializeField] private float positionOffset;
+        [SerializeField] private string platformTag;
+        [SerializeField] private string oneWayPlatformTag;
+        [SerializeField] private LayerMask targetLayer;
 
         private float inactiveGroundSensorDistance;
-
         protected override string SensorName => nameof(GroundDetector);
-
-        protected override Vector2 InitSensorPosition => entityCollider.bounds.center;
+        protected override Vector2 InitSensorPosition => new Vector2(entityCollider.bounds.center.x, entityCollider.bounds.center.y + positionOffset);
+        private float DefaultHitDistance => inactiveGroundSensorDistance + hitDistance;
 
 
         protected override void Awake()
@@ -33,15 +33,18 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
 
 
         public bool IsGroundDetect()
-            => hitDistance >= GroundHit.distance;
+            => DefaultHitDistance >= GroundHit.distance;
+
+        public bool IsGroundDetect(float hitDistance)
+            => inactiveGroundSensorDistance + hitDistance >= GroundHit.distance;
 
         public bool IsPlatformDetect()
             => GroundHit.collider.CompareTag(platformTag)
-            && hitDistance >= GroundHit.distance;
+            && DefaultHitDistance >= GroundHit.distance;
 
         public bool IsOneWayPlatformDetect()
             => GroundHit.collider.CompareTag(oneWayPlatformTag)
-            && hitDistance >= GroundHit.distance
+            && DefaultHitDistance >= GroundHit.distance
             && inactiveGroundSensorDistance <= GroundHit.distance;
 
         public float GetGroundSlopeAngle()
@@ -57,7 +60,7 @@ namespace CoreSystem.CoreComponents.SensorDetectComponents
         protected override void DrawRay()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(sensor.position, new Vector2(0, -hitDistance));
+            Gizmos.DrawRay(sensor.position, new Vector2(0, -DefaultHitDistance));
         }
     }
 }

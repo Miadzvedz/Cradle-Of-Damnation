@@ -1,5 +1,5 @@
-﻿using Entities;
-using Extensions;
+﻿using CoreSystem.CoreComponents.SensorDetectComponents;
+using Entities;
 using UnityEngine;
 
 namespace FiniteStateMachine.PlayerStates
@@ -14,8 +14,9 @@ namespace FiniteStateMachine.PlayerStates
         private bool isLedgeDetected;
         private bool isGrabWallDetected;
         private bool isGirderDetected;
-        private bool isFalling;
         private float fallingForce;
+
+        private bool IsFalling => physicsCore.Movement.CurrentVelocity.y <= 0;
 
         public PlayerInAirState(StateMachine stateMachine, Player player) : base(stateMachine, player)
         {
@@ -29,7 +30,7 @@ namespace FiniteStateMachine.PlayerStates
             player.Input.DashEvent += OnAirDash;
 
             physicsCore.Freezing.ResetFreezePos();
-            bodyCore.BodyCollision.SetColliderHeight(player.Data.StandColiderHeight);
+            collisionCore.BodyCollision.SetColliderHeight(player.Data.StandColiderHeight);
 
             player.Animator.Play(hashInAir);
         }
@@ -38,20 +39,32 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.LogicUpdate();
 
+            if (player.Input.IsUpInput)
+            {
+                if (sensorCore.LadderDetector.TryGetVerticalМidOfLadder(out float midOfLadder, LadderPlace.Mid))
+                {
+                    player.ToLadderState.Initialize(
+                        new Vector2(midOfLadder, player.transform.position.y),
+                        LadderPlace.Mid);
+
+                    stateMachine.ChangeState(player.ToLadderState);
+                }
+            }
+
             if (isOneWayPlatform || isPlatform)
             {               
                 player.LandingState.LandingForce = fallingForce;
                 stateMachine.ChangeState(player.LandingState);
             }
-            else if (isLedgeDetected && isFalling) 
+            else if (isLedgeDetected) 
             {
 				stateMachine.ChangeState(player.HangOnLedgeState);
             }
-            else if (isGrabWallDetected && isFalling)
+            else if (isGrabWallDetected)
             {
 				stateMachine.ChangeState(player.OnWallState);
             }
-            else if(isGirderDetected && isFalling)
+            else if(isGirderDetected)
             {
                 stateMachine.ChangeState(player.HangOnGirderState);
             }
@@ -73,48 +86,40 @@ namespace FiniteStateMachine.PlayerStates
         {
             base.Exit();
 
-            isGirderDetected = false;
-            isLedgeDetected = false;
-            isGrabWallDetected = false;
-            isOneWayPlatform = false;
-            isPlatform = false;
+            Reset();
 
             player.Input.JumpEvent -= OnJump;
             player.Input.DashEvent -= OnAirDash;
 
             player.JumpState.DisableDoubleJumpFX();
-            
-            ResetFallingForce();
         }
 
         public override void DoCheck()
         {
             TrackingFallingForce();
 
-            isFalling = physicsCore.Movement.CurrentVelocity.y <= 0;
-
             isPlatform = sensorCore.GroundDetector.IsPlatformDetect();
 
-            if (isFalling) 
+            if (IsFalling)
             {
                 isOneWayPlatform = sensorCore.GroundDetector.IsOneWayPlatformDetect();
-            }
-                
-            if (isGrabWallDetected = sensorCore.GrabWallDetector.GetDetectedGrabWallPosition(out Vector2 wallPosition))
-            {
-                PlayerOnWallState.DetectedPosition = wallPosition;
-            }                
-          
-            if (player.HangOnLedgeState.isReady)
-            {
-                if (isLedgeDetected = sensorCore.LedgeDetector.GetDetectedLedgeCorner(out Vector2 ledgeCorner))
-                    PlayerHangState.GrapPosition = ledgeCorner;
-            }
-            
-            if (player.HangOnGirderState.isReady)
-            {
-                if (isGirderDetected = sensorCore.GirderDetector.GetDetectedGirderPosition(out Vector2 girderPosition))
-                    PlayerHangState.GrapPosition = girderPosition;
+
+                if (isGrabWallDetected = sensorCore.GrabWallDetector.TryGetGrabWallPosition(out Vector2 wallPosition))
+                {
+                    PlayerOnWallState.DetectedPosition = wallPosition;
+                }
+
+                if (player.HangOnLedgeState.isReady)
+                {
+                    if (isLedgeDetected = sensorCore.LedgeDetector.TryGetLedgeCorner(out Vector2 ledgeCorner))
+                        PlayerHangState.GrapPosition = ledgeCorner;
+                }
+
+                if (player.HangOnGirderState.isReady)
+                {
+                    if (isGirderDetected = sensorCore.GirderDetector.TryGetGirderPosition(out Vector2 girderPosition))
+                        PlayerHangState.GrapPosition = girderPosition;
+                }
             }
         }
 
@@ -130,7 +135,15 @@ namespace FiniteStateMachine.PlayerStates
             }
         }
 
-        private void ResetFallingForce() => fallingForce = default;
+        private void Reset()
+        {
+            isGirderDetected = false;
+            isLedgeDetected = false;
+            isGrabWallDetected = false;
+            isOneWayPlatform = false;
+            isPlatform = false;
+            fallingForce = default;
+        }
 
         #region Input
         private void OnJump()

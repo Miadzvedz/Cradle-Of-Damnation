@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Pool.ItemsPool;
+using Pool.ItemsPool.AnimationPool;
 using System;
 using UnityEngine;
 
@@ -96,7 +96,7 @@ namespace FiniteStateMachine.PlayerStates
             if (player.Input.InputVertical == Vector2.down.y)
             {
                 if (!sensorCore.GroundDetector.IsOneWayPlatformDetect()) return;
-                bodyCore.PlatformCollision.IgnoreOneWayPlatform();
+                collisionCore.PlatformCollision.IgnoreOneWayPlatform();
             }
             else
             {
