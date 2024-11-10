@@ -9,7 +9,6 @@ namespace FiniteStateMachine.PlayerStates
     {
         private readonly int hashTopToLadder = Animator.StringToHash("TopToLadder");
         private readonly int hashBottomToLadder = Animator.StringToHash("BottomToLadder");
-        private readonly int hashMidToLadder = Animator.StringToHash("MidToLadder");
         private readonly float offsetPosition = 1.12f;
         private Vector2 position;
         private LadderPlace fromPlace;
@@ -31,17 +30,22 @@ namespace FiniteStateMachine.PlayerStates
                 player.Animator.Play(hashTopToLadder);           
             else if (fromPlace.Equals(LadderPlace.Bottom))
                 player.Animator.Play(hashBottomToLadder);
-            else if (fromPlace.Equals(LadderPlace.Mid))
-                player.Animator.Play(hashMidToLadder);
         }
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
 
-            if (isAnimFinished)
+            if (fromPlace.Equals(LadderPlace.Mid))
             {
                 stateMachine.ChangeState(player.OnLadderState);
+            }
+            else
+            {
+                if (isAnimFinished)
+                {
+                    stateMachine.ChangeState(player.OnLadderState);
+                }
             }
         }
 
