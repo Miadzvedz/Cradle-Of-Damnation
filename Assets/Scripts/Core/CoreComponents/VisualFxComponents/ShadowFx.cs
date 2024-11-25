@@ -33,9 +33,9 @@ namespace CoreSystem.CoreComponents.VisualFxComponents
         }
 
         public override void LogicUpdate()
-        {
+        {           
             if (shadowOn)
-            {
+            {              
                 UpdateShadow();
             }
         }
@@ -56,12 +56,16 @@ namespace CoreSystem.CoreComponents.VisualFxComponents
             Vector2 position = core.Sensor.GroundDetector.GroundHit.point;
             bool isActive = shadowFromPool.isActiveAndEnabled;
             
+
             if (isActive) shadowFromPool.transform.SetPositionAndRotation(position, entityTransform.rotation);
             
             if (core.Sensor.GroundDetector.IsGroundDetect())
             {
-                if (shadowFromPool.transform.localScale == initialShadowScale) return;
-                shadowFromPool.transform.localScale = initialShadowScale;
+                if (shadowFromPool.transform.localScale != initialShadowScale)
+                    shadowFromPool.transform.localScale = initialShadowScale;
+                
+                if (!shadowFromPool.isActiveAndEnabled)
+                    shadowFromPool.SetActive(true);
             }
             else
             {
