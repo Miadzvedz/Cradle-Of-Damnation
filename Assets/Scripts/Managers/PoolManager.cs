@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using Pool.ItemsPool;
+using Pool;
+using Assets.Scripts.Managers;
 
-namespace Pool
+namespace Managers
 {
-    public class PoolManager : MonoBehaviour
+    public class PoolManager : BaseManager<PoolManager>
     {
         [SerializeField] private List<PoolItem> poolableObjects = new List<PoolItem>();
 
         private Dictionary<int, GameObjectPool> poolDictionary = new Dictionary<int, GameObjectPool>();
 
-        static PoolManager instance;
-        public static PoolManager Instance => instance ??= FindObjectOfType<PoolManager>();
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             if (poolableObjects.Any())
             {
                 poolableObjects.ForEach(obj => CreatePool(obj.Prefab, obj.PoolCount));
