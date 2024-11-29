@@ -4,12 +4,13 @@ using System.Linq;
 using Unity.VisualScripting;
 using Pool.ItemsPool;
 using Pool;
-using Assets.Scripts.Managers;
+
 
 namespace Managers
 {
     public class PoolManager : BaseManager<PoolManager>
     {
+        [SerializeField] private Transform poolsContainer;
         [SerializeField] private List<PoolItem> poolableObjects = new List<PoolItem>();
 
         private Dictionary<int, GameObjectPool> poolDictionary = new Dictionary<int, GameObjectPool>();
@@ -18,6 +19,9 @@ namespace Managers
         protected override void Awake()
         {
             base.Awake();
+
+            if (poolsContainer == null)
+                throw new MissingComponentException(poolsContainer.name);
 
             if (poolableObjects.Any())
             {
@@ -28,7 +32,7 @@ namespace Managers
         public void CreatePool(GameObject prefab, int poolSize)
         {
             int poolKey = prefab.GetInstanceID();
-            Transform container = GetContainer(prefab.name);
+            Transform container = GetContainer(prefab.name, poolsContainer);
 
             if (!poolDictionary.ContainsKey(poolKey))
             {          
@@ -70,10 +74,10 @@ namespace Managers
             }
         }
 
-        private Transform GetContainer(string name)
+        private Transform GetContainer(string name, Transform parentObj = null)
         {
-            GameObject poolHolder = new GameObject($"Container [{name}]");
-            poolHolder.transform.parent = transform;
+            GameObject poolHolder = new($"Container [{name}]");
+            poolHolder.transform.parent = parentObj;
             return poolHolder.transform;
         }
     }

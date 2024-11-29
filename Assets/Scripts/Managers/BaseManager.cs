@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Managers
+namespace Managers
 {
     public abstract class BaseManager<T> : MonoBehaviour
         where T : BaseManager<T>
