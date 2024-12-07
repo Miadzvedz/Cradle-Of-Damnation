@@ -31,7 +31,7 @@ namespace FiniteStateMachine.PlayerStates
 					x = physicsCore.Flipping.IsLeftDirection()
 						? player.BodyCollider.bounds.min.x
 						: player.BodyCollider.bounds.max.x,
-					y = player.BodyCollider.bounds.min.y,
+					y = player.BodyCollider.bounds.center.y - 0.2f,
 				},
                 player.transform.rotation, true);
 

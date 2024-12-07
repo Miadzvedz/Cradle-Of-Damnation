@@ -31,8 +31,6 @@ namespace FiniteStateMachine.PlayerStates
 
         public virtual void Enter()
         {
-            Debug.Log(this);
-
             isAnimFinished = false;
             DoCheck();
         }
