@@ -1,4 +1,5 @@
-<h1 align="center"> My game project in Unity engine </h1>
+<h1 align="center"> Cradle Of Damnation </h1>
+My game project on Unity Engine
 <h3 align="center"> Genre: 2D Platformer Slasher </h3>
 
 <p align="center">
