@@ -1,6 +1,5 @@
 <h1 align="center"> Cradle Of Damnation </h1>
-My game project on Unity Engine
-<h3 align="center"> Genre: 2D Platformer Slasher </h3>
+<h4 align="center"> My game project on Unity Engine </h4>
 
 <p align="center">
   <img src="https://github.com/Grizzly-Alex/Cradle-Of-Evil/assets/35379801/482a892b-b546-4381-81a7-c6588f82bc5d" />
